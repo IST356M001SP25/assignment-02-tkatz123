@@ -67,7 +67,9 @@ def get_unit(package: list[dict]) -> str:
     output: pieces
 
     '''
-    pass # TODO: Replace this line and write code
+    unit = list(package[0].keys())[0]
+    return unit
+
 
 # This will only run from here, not when imported
 # # Use this for testing / debugging cases with the debugger
