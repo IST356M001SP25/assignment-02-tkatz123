@@ -23,3 +23,4 @@ Examples:
 
 `--- Reflection Below This Line ---`
 
+On this homework, I got more comfortable with using string functions, dictionaries as well as creating functions. I also learned how to use functions that I created in other files in the repository, and how to write information to JSON file.
