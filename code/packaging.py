@@ -19,19 +19,16 @@ def parse_packaging(packaging_data: str) -> list[dict]:
     output: [{ 'pieces' : 20}, {'packs' : 10}, {'carton' : 4}, {'box' : 1}]
     '''
     package = []
-    for x in packaging_data.split(' / '):
-        item = x.split(' in ')[0]
-        quantity = int(item.split()[0])
-        item = item.split()[1].strip()
-        package.append({item: quantity})
     
-    item = x.split(' in ')[-1]
-    quantity = int(item.split()[0])
-    item = item.split()[1].strip()
-    package.append({item: quantity})
+    parts = [part.strip() for part in packaging_data.split(' / ')]
+    
+    for part in parts[:-1]:
+        quantity, item = part.split(' in ')[0].split(maxsplit=1)
+        package.append({item.strip(): int(quantity)})
+    last_quantity, last_item = parts[-1].split(' in ')[-1].split(maxsplit=1)
+    package.append({last_item.strip(): int(last_quantity)})
 
     return package
-
 
 
 
@@ -50,9 +47,10 @@ def calc_total_units(package: list[dict]) -> int:
     '''
     total = 1
     for item in package:
-        total *= list(item.values())[0]
+        for value in item.values():
+            total *= value
+            break  
     return total
-
 
 def get_unit(package: list[dict]) -> str:
     '''
